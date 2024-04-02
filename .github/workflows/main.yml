@@ -1,1 +1,30 @@
+name: "workflow principal de CI/CD"
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: Configuration de Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Build
+        shell: bash
+        run: |
+          ./gradlew build
+
+      - name: Test
+        shell: bash
+        run: |
+          ./gradlew test
